@@ -1,0 +1,6 @@
+{
+  "name": "NIT DGP Hall 14 Booker",
+  "description": "Unofficial room booking application for NIT DGP Hall 14.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
