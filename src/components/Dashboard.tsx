@@ -18,11 +18,6 @@ export function Dashboard({ bookings }: DashboardProps) {
     return STUDENT_DATABASE.find(s => s['Reg. No.'] === regNo);
   };
   
-  const getFirstName = (regNo: string) => {
-    const fullName = getStudent(regNo)?.Name || regNo;
-    return fullName.split(' ')[0];
-  };
-
   const rooms = Array.from({ length: 40 }, (_, i) => {
     const roomNum = i + 1;
     return `${selectedFloor}${roomNum.toString().padStart(2, '0')}`;
@@ -66,7 +61,7 @@ export function Dashboard({ bookings }: DashboardProps) {
         </div>
 
         <div className="p-6">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 gap-4">
+          <div className="grid grid-cols-2 min-[400px]:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-3 sm:gap-4">
             {rooms.map(room => {
               const booking = bookingsByRoom.get(room);
               const isBooked = !!booking;
@@ -87,10 +82,10 @@ export function Dashboard({ bookings }: DashboardProps) {
                   </span>
                   
                   {isBooked && booking ? (
-                    <div className="flex flex-col items-center mt-1 w-full text-[9px] font-bold uppercase tracking-wider text-indigo-700 leading-[1.2]">
-                      <span className="truncate w-full text-center">{getFirstName(booking.student_reg)}</span>
-                      <span className="truncate w-full text-center">{getFirstName(booking.roommate1_reg)}</span>
-                      <span className="truncate w-full text-center">{getFirstName(booking.roommate2_reg)}</span>
+                    <div className="flex flex-col items-center mt-1 w-full text-[8px] font-bold uppercase tracking-wider text-indigo-700 leading-[1.2] gap-0.5">
+                      <span className="truncate w-full text-center" title={getStudent(booking.student_reg)?.Name || booking.student_reg}>{getStudent(booking.student_reg)?.Name || booking.student_reg}</span>
+                      <span className="truncate w-full text-center" title={getStudent(booking.roommate1_reg)?.Name || booking.roommate1_reg}>{getStudent(booking.roommate1_reg)?.Name || booking.roommate1_reg}</span>
+                      <span className="truncate w-full text-center" title={getStudent(booking.roommate2_reg)?.Name || booking.roommate2_reg}>{getStudent(booking.roommate2_reg)?.Name || booking.roommate2_reg}</span>
                     </div>
                   ) : (
                     <span className="text-[10px] font-bold mt-1 uppercase tracking-wider text-center px-1 overflow-hidden text-ellipsis w-full">
